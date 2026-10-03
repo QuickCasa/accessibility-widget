@@ -3,27 +3,28 @@
 [![CI](https://github.com/QuickCasa/accessibility-widget/actions/workflows/ci.yml/badge.svg)](https://github.com/QuickCasa/accessibility-widget/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-An honest accessibility toolbar for any website. One script tag, no API key, no
-backend, no tracking. Every setting is a data attribute on the script tag.
+A free, open source accessibility toolbar for any website. Add one script tag and
+visitors can adjust contrast, text size, spacing, focus highlighting and motion,
+and get a skip link that moves keyboard focus to your main content. You
+configure it with data attributes on the same tag, and it needs no account or API
+key.
 
-About 18 KB raw and 6 KB gzipped, with a size budget enforced in CI.
+The script is about 18 KB raw and 6 KB gzipped, with a size budget enforced in
+CI. It makes no network requests.
 
 **[Live demo](https://quickcasa.github.io/accessibility-widget/)**
 
-## What this is, and what it is not
+## What it does and doesn't do
 
-This gives visitors **controls over their own experience** and adds one genuine
-structural fix: a skip link that actually moves keyboard focus. That is all it
-claims to do.
+The widget gives visitors control over how your site looks and moves for them,
+and adds a working skip link. It doesn't generate alt text, rewrite your markup
+or try to fix your site automatically.
 
-It is deliberately **not** an accessibility overlay in the sense the industry
-means. It does not generate alt text, does not rewrite your markup, and does not
-attempt automated remediation.
-
-**This does not make a site WCAG or ADA compliant, and it does not reduce legal
-exposure.** No script can. Overlay vendors who have marketed widgets that way
-have been sued and fined for it. Accessibility comes from how a site is built and
-tested. If you use this widget, please describe it the way this README does.
+**This doesn't make a site WCAG or ADA compliant or reduce legal exposure, and
+no script can.** In 2025 the US Federal Trade Commission ordered one overlay
+vendor to pay $1 million for claiming its widget made websites WCAG compliant.
+Accessibility comes from how a site is built and tested. If you use this widget,
+please describe it the same way this README does.
 
 ## Quick start
 
@@ -87,16 +88,16 @@ is a common accident.
 
 ## Features
 
-| Feature         | What it does                                                                           |
-| --------------- | -------------------------------------------------------------------------------------- |
-| Skip to main    | Real first-tab-stop skip link that moves **keyboard focus**, not just scroll position. |
-| Colour contrast | Forces a guaranteed palette, light-on-dark or dark-on-light.                           |
-| Text size       | 100, 115, 130 or 150 percent, behaving like the browser's own zoom.                    |
-| Text spacing    | The WCAG 1.4.12 metrics: line height 1.5, letter spacing 0.12em, word spacing 0.16em.  |
-| Underline links | Underlines `a[href]` only, skipping image-only and icon-only links.                    |
-| Highlight focus | Two-tone focus ring, white inside a black outer ring, so one colour is always visible. |
-| Reduce motion   | Collapses animations and transitions, and pauses autoplaying media.                    |
-| Reset all       | Clears storage and returns the page to untouched.                                      |
+| Feature         | What it does                                                                                                |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| Skip to main    | The first tab stop on the page. Moves **keyboard focus** to the main content, so the next Tab starts there. |
+| Colour contrast | Light text on dark or dark text on light, without breaking fixed or sticky headers.                         |
+| Text size       | 100, 115, 130 or 150 percent. Works like browser zoom, so text set in pixels scales too.                    |
+| Text spacing    | The WCAG 1.4.12 values: line height 1.5, paragraph spacing 2em, letter spacing 0.12em, word spacing 0.16em. |
+| Underline links | Underlines `a[href]` only, skipping image-only and icon-only links.                                         |
+| Highlight focus | Two-tone focus ring, white inside a black outer ring, so it stands out on light and dark backgrounds.       |
+| Reduce motion   | Stops animations and transitions, and pauses autoplaying video and audio.                                   |
+| Reset all       | Clears storage and puts the page back the way it was.                                                       |
 
 Preferences persist per origin in localStorage and never leave the visitor's
 device. With nothing stored, motion reduction starts **on** when the operating
@@ -132,8 +133,8 @@ accessibility widget itself unreadable.
 **Specificity is deliberate.** The universal selector's exclusion list is wrapped
 in `:where()` so it contributes zero specificity. Written as chained `:not(#id)`
 instead, the two id selectors hand `*` id-level specificity and later rules lose
-to it. That is not theoretical: it once turned high-contrast links white instead
-of yellow.
+to it. This happened once already: high-contrast links came out white instead of
+yellow.
 
 **The widget counter-zooms itself.** Page scaling is applied to `body`. Without a
 reciprocal `zoom` on the widget's own hosts, the panel's fixed positioning scales
@@ -143,14 +144,13 @@ too, and at 150 percent it walks off the edge of the viewport.
 widget's own styles inside its shadow roots use `adoptedStyleSheets`, which is
 not an inline style. That means the widget works under a strict
 Content-Security-Policy without `style-src 'unsafe-inline'`. A `<style>` element
-is the fallback for older browsers only. `demo/strict-csp.html` proves it.
+is the fallback for older browsers only. `demo/strict-csp.html` tests this.
 
 **Icons are built node by node**, not via `innerHTML`, so the widget still
 renders on sites enforcing Trusted Types.
 
 **The shadow roots are open**, so automated auditing tools and your own tests can
-inspect the widget. An accessibility control that cannot itself be audited is
-not worth shipping.
+inspect the widget.
 
 ## Known limits
 
@@ -164,8 +164,8 @@ not worth shipping.
   pixel-based sites, and it is what browser zoom does, but fixed-position offsets
   scale with it. Worth a look on any site with unusual sticky layout.
 - **Reduced motion only pauses media present when it is switched on.** Media
-  added later keeps playing. A permanent observer on every page view was not a
-  trade worth making.
+  added later keeps playing. Catching it would mean running an observer on every
+  page view, which didn't seem worth the cost.
 - **Configuration needs a script tag.** Importing the file through a bundler
   works, but there is no tag to carry data attributes, so the defaults apply.
 
@@ -195,9 +195,8 @@ the script invalid attributes, including an attempt to inject CSS through the
 accent colour. `strict-csp.html` runs the widget under a policy that blocks
 inline styles and scripts and enforces Trusted Types.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. The short
-version: small, honest and dependency-free are features, and changes that trade
-them away will be declined.
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. In short,
+a change that makes the script bigger or adds a dependency needs a strong reason.
 
 ## Licence
 

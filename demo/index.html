@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Accessibility Widget by QuickCasa</title>
+    <title>Open Source Accessibility Toolbar for Websites | QuickCasa</title>
     <meta
       name="description"
-      content="An honest, open source accessibility toolbar for any website. One script tag, no API key, no backend, no tracking." />
+      content="A free, open source accessibility toolbar you add to any website with one script tag. Visitors can adjust contrast, text size, spacing, focus and motion." />
     <style>
       :root {
         --background: #ffffff;
@@ -174,18 +174,18 @@
         font-size: 0.97rem;
       }
 
-      .honest {
+      .limits {
         padding: 24px 28px;
         background: var(--surface);
-        border-left: 6px solid var(--accent);
-        border-radius: 0 12px 12px 0;
+        border: 1px solid var(--border);
+        border-radius: 12px;
       }
 
-      .honest p {
+      .limits p {
         margin: 0 0 12px;
       }
 
-      .honest p:last-child {
+      .limits p:last-child {
         margin-bottom: 0;
       }
 
@@ -281,12 +281,13 @@
     <main>
       <div class="hero">
         <div class="wrap">
-          <h1>An accessibility toolbar that does not lie to you.</h1>
+          <h1>A free, open source accessibility toolbar for any website</h1>
           <p class="lede">
-            One script tag gives your visitors real control over contrast, text
-            size, spacing, focus and motion, plus a skip link that actually
-            moves focus. No API key, no backend, no tracking, about 6 KB
-            gzipped. Free and open source under the MIT licence.
+            Add one script tag and visitors can adjust contrast, text size,
+            spacing, focus highlighting and motion on your site. It also adds a
+            skip link that moves keyboard focus to your main content. You don't
+            need an account or an API key. The script is about 6 KB gzipped and
+            makes no network requests.
           </p>
           <div class="actions">
             <button
@@ -302,9 +303,9 @@
             </a>
           </div>
           <p class="hint">
-            The round button in the bottom right corner is the real widget,
-            running on this page. Press Tab once from the top to find the skip
-            link.
+            The round button in the bottom right corner is the widget itself,
+            running on this page. Press Tab once from the top of the page to
+            find the skip link.
           </p>
         </div>
       </div>
@@ -316,84 +317,77 @@
             <li>
               <h3>Skip to main content</h3>
               <p>
-                A real first tab stop that moves keyboard focus, not just the
-                scroll position.
+                The first tab stop on the page. It moves keyboard focus to your
+                main content, so the next Tab starts from there.
               </p>
             </li>
             <li>
               <h3>Colour contrast</h3>
               <p>
-                A forced light-on-dark or dark-on-light palette that keeps
-                sticky headers working.
+                Light text on dark or dark text on light, without breaking fixed
+                or sticky headers.
               </p>
             </li>
             <li>
               <h3>Text size</h3>
               <p>
-                Four steps up to 150 percent, behaving like browser zoom so
-                pixel-based sites scale too.
+                100, 115, 130 or 150 percent. It works like browser zoom, so
+                text set in pixels scales too.
               </p>
             </li>
             <li>
               <h3>Text spacing</h3>
               <p>
-                The exact line, letter and word spacing from WCAG success
+                The line, paragraph, letter and word spacing from WCAG success
                 criterion 1.4.12.
               </p>
             </li>
             <li>
               <h3>Underline links</h3>
               <p>
-                Underlines real links only, and leaves image and icon links
-                alone.
+                Underlines text links and leaves image and icon links alone.
               </p>
             </li>
             <li>
               <h3>Highlight focus</h3>
               <p>
-                A two-tone focus ring, so one of its colours is always visible
-                on any background.
+                A two-tone focus ring, white inside black, so it stands out on
+                light and dark backgrounds.
               </p>
             </li>
             <li>
               <h3>Reduce motion</h3>
               <p>
-                Collapses animations and pauses autoplaying video. Starts on
-                when the operating system asks.
+                Stops animations and pauses autoplaying video and audio. It
+                turns on by itself when the visitor's device is set to reduce
+                motion.
               </p>
             </li>
             <li>
               <h3>Remembered choices</h3>
-              <p>
-                Saved on the visitor's device only. Nothing is ever sent
-                anywhere.
-              </p>
+              <p>Saved on the visitor's device and never sent anywhere.</p>
             </li>
           </ul>
         </div>
       </section>
 
-      <section aria-labelledby="honest-heading">
+      <section aria-labelledby="limits-heading">
         <div class="wrap">
-          <h2 id="honest-heading">What it does not do</h2>
-          <div class="honest">
+          <h2 id="limits-heading">What it doesn't do</h2>
+          <div class="limits">
             <p>
               <strong
-                >This does not make your site WCAG or ADA compliant, and it does
-                not reduce your legal exposure.</strong
+                >This doesn't make your site WCAG or ADA compliant or reduce
+                your legal exposure, and no script can.</strong
               >
-              No script can. Some overlay vendors have been sued and fined for
-              claiming otherwise.
+              In 2025 the US Federal Trade Commission ordered one overlay vendor
+              to pay $1 million for claiming its widget made websites WCAG
+              compliant.
             </p>
             <p>
-              It does not generate alt text, rewrite your markup or attempt
-              automated remediation. Accessibility comes from how a site is
+              It doesn't generate alt text, rewrite your markup or try to fix
+              your site automatically. Accessibility comes from how a site is
               built and tested.
-            </p>
-            <p>
-              What it does is give visitors controls over their own experience,
-              and add one genuine structural fix in the skip link. That is the
-              whole claim.
             </p>
           </div>
         </div>
@@ -407,7 +401,7 @@
             <a
               href="https://github.com/QuickCasa/accessibility-widget/releases/latest"
               >latest release</a
-            >, host it alongside your site, and add one tag to your
+            >, host it with the rest of your site, and add one tag to your
             <code>&lt;head&gt;</code>. Every attribute except
             <code>src</code> is optional.
           </p>
@@ -441,8 +435,8 @@
         <div class="wrap">
           <h2 id="config-heading">Configuration</h2>
           <p>
-            Everything is a data attribute on the script tag. Invalid values are
-            ignored with a console warning.
+            You configure the widget with data attributes on the script tag. An
+            invalid value is ignored with a console warning.
           </p>
           <div class="table-scroll">
             <table>
@@ -562,7 +556,7 @@
               },
               function () {
                 status.textContent =
-                  'Copying failed, select the snippet and copy it manually'
+                  "Copying didn't work. Select the snippet and copy it yourself."
               },
             )
           })

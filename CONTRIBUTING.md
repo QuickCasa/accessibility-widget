@@ -5,8 +5,8 @@ pull requests are all welcome.
 
 ## What this project will and will not accept
 
-This widget has a narrow, honest scope, and that scope is the point. Before you
-start on a feature, check it against these rules:
+This widget keeps a narrow scope on purpose. Before you start on a feature,
+check it against these rules:
 
 - **No automated remediation.** No generated alt text, no rewriting the host
   site's markup, no "fixing" ARIA. Those approaches break things and encourage
@@ -17,7 +17,7 @@ start on a feature, check it against these rules:
 - **No runtime dependencies.** Everything ships in the one file.
 - **No CSS filters on the document.** They break fixed and sticky positioning on
   the host site. A test enforces this.
-- **The size budget is a feature.** CI fails above the limits in
+- **Stay inside the size budget.** CI fails above the limits in
   `scripts/check-size.mjs`. Raising them takes a good reason in the pull request.
 - **Never claim compliance.** Copy, docs and labels describe what a control does,
   never what legal or WCAG status it confers.

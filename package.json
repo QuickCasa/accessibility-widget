@@ -1,7 +1,7 @@
 {
   "name": "@quickcasa/accessibility-widget",
   "version": "1.0.0",
-  "description": "An honest accessibility toolbar for any website. One script tag, no API key, no backend, no tracking.",
+  "description": "A free, open source accessibility toolbar you add to any website with one script tag.",
   "keywords": [
     "accessibility",
     "a11y",
