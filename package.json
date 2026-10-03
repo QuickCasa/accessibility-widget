@@ -1,0 +1,55 @@
+{
+  "name": "@quickcasa/accessibility-widget",
+  "version": "1.0.0",
+  "description": "An honest accessibility toolbar for any website. One script tag, no API key, no backend, no tracking.",
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "widget",
+    "toolbar",
+    "high-contrast",
+    "reduced-motion",
+    "skip-link"
+  ],
+  "homepage": "https://quickcasa.github.io/accessibility-widget/",
+  "bugs": {
+    "url": "https://github.com/QuickCasa/accessibility-widget/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuickCasa/accessibility-widget.git"
+  },
+  "license": "MIT",
+  "author": "QuickCasa (https://quickcasa.ai)",
+  "type": "module",
+  "main": "./dist/accessibility.js",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": true,
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite build --watch",
+    "typecheck": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "size": "node scripts/check-size.mjs",
+    "site": "node scripts/build-site.mjs",
+    "preview": "npm run build && npm run site && vite preview --outDir site --port 8788",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run format:check && npm run typecheck && npm test && npm run build && npm run size"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "prettier": "^3.9.9",
+    "terser": "^5.51.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
+  }
+}

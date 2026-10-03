@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessibility Widget by QuickCasa</title>
+    <meta
+      name="description"
+      content="An honest, open source accessibility toolbar for any website. One script tag, no API key, no backend, no tracking." />
+    <style>
+      :root {
+        --background: #ffffff;
+        --surface: #f6f5fa;
+        --text: #16141f;
+        --muted: #4d4a5c;
+        --border: #d9d6e4;
+        --accent: #5b1fe0;
+        --accent-text: #ffffff;
+        --code-background: #16141f;
+        --code-text: #f4f2fb;
+        color-scheme: light dark;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --background: #121019;
+          --surface: #1c1926;
+          --text: #f2f0f8;
+          --muted: #b9b4cc;
+          --border: #34304a;
+          --accent: #a98bff;
+          --accent-text: #121019;
+          --code-background: #08070c;
+          --code-text: #f4f2fb;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--background);
+        color: var(--text);
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+          Arial, sans-serif;
+        font-size: 17px;
+        line-height: 1.6;
+      }
+
+      a {
+        color: var(--accent);
+        text-underline-offset: 0.15em;
+      }
+
+      .wrap {
+        width: min(880px, 100% - 32px);
+        margin: 0 auto;
+      }
+
+      .site-header {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .site-header .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 64px;
+      }
+
+      .brand {
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .brand span {
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .hero {
+        padding: 72px 0 56px;
+      }
+
+      .hero h1 {
+        margin: 0 0 16px;
+        font-size: clamp(2rem, 5vw, 3.1rem);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+
+      .lede {
+        max-width: 640px;
+        margin: 0 0 28px;
+        font-size: 1.2rem;
+        color: var(--muted);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 48px;
+        padding: 10px 20px;
+        border: 2px solid var(--accent);
+        border-radius: 10px;
+        font: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .button-primary {
+        background: var(--accent);
+        color: var(--accent-text);
+      }
+
+      .button-secondary {
+        background: transparent;
+        color: var(--accent);
+      }
+
+      .hint {
+        margin: 20px 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      section {
+        padding: 40px 0;
+        border-top: 1px solid var(--border);
+      }
+
+      h2 {
+        margin: 0 0 16px;
+        font-size: 1.6rem;
+        line-height: 1.25;
+      }
+
+      h3 {
+        margin: 0 0 6px;
+        font-size: 1.05rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .grid li {
+        padding: 18px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+      }
+
+      .grid p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+
+      .honest {
+        padding: 24px 28px;
+        background: var(--surface);
+        border-left: 6px solid var(--accent);
+        border-radius: 0 12px 12px 0;
+      }
+
+      .honest p {
+        margin: 0 0 12px;
+      }
+
+      .honest p:last-child {
+        margin-bottom: 0;
+      }
+
+      .snippet {
+        position: relative;
+      }
+
+      pre {
+        margin: 0;
+        padding: 20px;
+        overflow-x: auto;
+        background: var(--code-background);
+        color: var(--code-text);
+        border-radius: 12px;
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .copy {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        min-height: 36px;
+        padding: 4px 12px;
+        background: var(--code-text);
+        color: var(--code-background);
+        border: 0;
+        border-radius: 8px;
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+
+      th,
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        font-weight: 700;
+      }
+
+      td code {
+        white-space: nowrap;
+      }
+
+      .site-footer {
+        padding: 32px 0 96px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="./"
+          >Accessibility Widget <span>by QuickCasa</span></a
+        >
+        <a href="https://github.com/QuickCasa/accessibility-widget">GitHub</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="wrap">
+          <h1>An accessibility toolbar that does not lie to you.</h1>
+          <p class="lede">
+            One script tag gives your visitors real control over contrast, text
+            size, spacing, focus and motion, plus a skip link that actually
+            moves focus. No API key, no backend, no tracking, about 6 KB
+            gzipped. Free and open source under the MIT licence.
+          </p>
+          <div class="actions">
+            <button
+              class="button button-primary"
+              type="button"
+              id="open-widget">
+              Try it on this page
+            </button>
+            <a
+              class="button button-secondary"
+              href="https://github.com/QuickCasa/accessibility-widget">
+              View the source
+            </a>
+          </div>
+          <p class="hint">
+            The round button in the bottom right corner is the real widget,
+            running on this page. Press Tab once from the top to find the skip
+            link.
+          </p>
+        </div>
+      </div>
+
+      <section aria-labelledby="features-heading">
+        <div class="wrap">
+          <h2 id="features-heading">What visitors get</h2>
+          <ul class="grid">
+            <li>
+              <h3>Skip to main content</h3>
+              <p>
+                A real first tab stop that moves keyboard focus, not just the
+                scroll position.
+              </p>
+            </li>
+            <li>
+              <h3>Colour contrast</h3>
+              <p>
+                A forced light-on-dark or dark-on-light palette that keeps
+                sticky headers working.
+              </p>
+            </li>
+            <li>
+              <h3>Text size</h3>
+              <p>
+                Four steps up to 150 percent, behaving like browser zoom so
+                pixel-based sites scale too.
+              </p>
+            </li>
+            <li>
+              <h3>Text spacing</h3>
+              <p>
+                The exact line, letter and word spacing from WCAG success
+                criterion 1.4.12.
+              </p>
+            </li>
+            <li>
+              <h3>Underline links</h3>
+              <p>
+                Underlines real links only, and leaves image and icon links
+                alone.
+              </p>
+            </li>
+            <li>
+              <h3>Highlight focus</h3>
+              <p>
+                A two-tone focus ring, so one of its colours is always visible
+                on any background.
+              </p>
+            </li>
+            <li>
+              <h3>Reduce motion</h3>
+              <p>
+                Collapses animations and pauses autoplaying video. Starts on
+                when the operating system asks.
+              </p>
+            </li>
+            <li>
+              <h3>Remembered choices</h3>
+              <p>
+                Saved on the visitor's device only. Nothing is ever sent
+                anywhere.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="honest-heading">
+        <div class="wrap">
+          <h2 id="honest-heading">What it does not do</h2>
+          <div class="honest">
+            <p>
+              <strong
+                >This does not make your site WCAG or ADA compliant, and it does
+                not reduce your legal exposure.</strong
+              >
+              No script can. Some overlay vendors have been sued and fined for
+              claiming otherwise.
+            </p>
+            <p>
+              It does not generate alt text, rewrite your markup or attempt
+              automated remediation. Accessibility comes from how a site is
+              built and tested.
+            </p>
+            <p>
+              What it does is give visitors controls over their own experience,
+              and add one genuine structural fix in the skip link. That is the
+              whole claim.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="install-heading">
+        <div class="wrap">
+          <h2 id="install-heading">Add it to your site</h2>
+          <p>
+            Download <code>accessibility.js</code> from the
+            <a
+              href="https://github.com/QuickCasa/accessibility-widget/releases/latest"
+              >latest release</a
+            >, host it alongside your site, and add one tag to your
+            <code>&lt;head&gt;</code>. Every attribute except
+            <code>src</code> is optional.
+          </p>
+          <div class="snippet">
+            <pre><code id="embed-snippet">&lt;script
+  src="/accessibility.js"
+  data-qc-accessibility
+  data-position="bottom-right"
+  data-accent="#5B1FE0"
+  defer&gt;&lt;/script&gt;</code></pre>
+            <button class="copy" type="button" data-copy-target="embed-snippet">
+              Copy<span class="visually-hidden"> the embed snippet</span>
+            </button>
+          </div>
+          <p>
+            To try it before you host anything, point <code>src</code> at the
+            copy on this site:
+            <code
+              >https://quickcasa.github.io/accessibility-widget/v1/accessibility.js</code
+            >. It tracks the latest 1.x release.
+          </p>
+          <p
+            id="copy-status"
+            class="visually-hidden"
+            role="status"
+            aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section aria-labelledby="config-heading">
+        <div class="wrap">
+          <h2 id="config-heading">Configuration</h2>
+          <p>
+            Everything is a data attribute on the script tag. Invalid values are
+            ignored with a console warning.
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Attribute</th>
+                  <th scope="col">Default</th>
+                  <th scope="col">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>data-main-content-selector</code></td>
+                  <td>automatic</td>
+                  <td>
+                    Where the skip link goes. Falls back to <code>main</code>,
+                    then <code>[role="main"]</code> and other common patterns.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>data-position</code></td>
+                  <td><code>bottom-right</code></td>
+                  <td>
+                    Also <code>bottom-left</code>, <code>top-right</code> or
+                    <code>top-left</code>.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>data-accent</code></td>
+                  <td><code>#6A24FF</code></td>
+                  <td>
+                    Hex only. Used for borders and focus rings, never behind
+                    text.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>data-features</code></td>
+                  <td>all</td>
+                  <td>
+                    Comma-separated allowlist: <code>skip-link</code>,
+                    <code>contrast</code>, <code>text-size</code>,
+                    <code>text-spacing</code>, <code>link-underline</code>,
+                    <code>focus-outline</code>, <code>reduce-motion</code>.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>data-button-label</code></td>
+                  <td>Accessibility options</td>
+                  <td>The accessible name of the trigger button.</td>
+                </tr>
+                <tr>
+                  <td><code>data-storage-key</code></td>
+                  <td><code>qc_a11y_v1</code></td>
+                  <td>
+                    The localStorage key, for keeping several sites on one
+                    origin apart.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="tests-heading">
+        <div class="wrap">
+          <h2 id="tests-heading">Test pages</h2>
+          <ul>
+            <li>
+              <a href="stress-test.html">Stress test</a>: a fixed header, a
+              background-image hero, pixel-sized text, a looping animation and
+              an image-only link.
+            </li>
+            <li>
+              <a href="hostile-config.html">Hostile configuration</a>: no main
+              element and deliberately invalid attributes, including an attempt
+              to inject CSS.
+            </li>
+            <li>
+              <a href="strict-csp.html">Strict Content-Security-Policy</a>: no
+              inline styles, no inline scripts, no network requests and Trusted
+              Types enforced.
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        Built and maintained by <a href="https://quickcasa.ai">QuickCasa</a> in
+        Kitchener, Ontario. Released under the MIT licence.
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById('open-widget')
+        .addEventListener('click', function () {
+          if (window.QuickCasaAccessibility) {
+            window.QuickCasaAccessibility.open()
+          }
+        })
+
+      document
+        .querySelectorAll('[data-copy-target]')
+        .forEach(function (button) {
+          button.addEventListener('click', function () {
+            var target = document.getElementById(
+              button.getAttribute('data-copy-target'),
+            )
+            var status = document.getElementById('copy-status')
+
+            navigator.clipboard.writeText(target.textContent).then(
+              function () {
+                status.textContent = 'Snippet copied to the clipboard'
+              },
+              function () {
+                status.textContent =
+                  'Copying failed, select the snippet and copy it manually'
+              },
+            )
+          })
+        })
+    </script>
+    <script
+      src="accessibility.js"
+      data-qc-accessibility
+      data-accent="#5B1FE0"
+      defer></script>
+  </body>
+</html>

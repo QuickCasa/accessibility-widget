@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hostile configuration: Accessibility Widget</title>
+  </head>
+  <body>
+    <div class="not-main">
+      <p>This page has no main element and deliberately invalid attributes.</p>
+      <p>
+        Open the browser console. Each bad attribute should be rejected with a
+        warning, the skip link should be removed because there is nothing to
+        skip to, and the page should still be visible.
+      </p>
+      <p><a href="./">Back to the overview</a></p>
+    </div>
+
+    <script
+      src="accessibility.js"
+      data-qc-accessibility
+      data-accent="red; } body { display: none !important; } .x {"
+      data-main-content-selector=":::not-a-valid-selector"
+      data-features="nonsense-feature,another-fake-one"
+      data-position="upside-down"
+      defer></script>
+  </body>
+</html>
