@@ -67,8 +67,12 @@ Maintainers only.
 1. Update the version in `package.json` and add an entry to `CHANGELOG.md`.
 2. Commit, then tag the commit, for example `git tag v1.1.0`.
 3. Push the commit and the tag. The release workflow builds, tests, creates the
-   GitHub release with the bundle attached and publishes to npm when an npm
-   token is configured. The Pages workflow redeploys the demo site.
+   GitHub release with the bundle attached and stages the version on npm. npm
+   trusts the workflow directly, so there is no npm token. The Pages workflow
+   redeploys the demo site.
+4. Approve the staged version with 2FA. Find its id with `npm stage list`, then
+   run `npm stage approve <stage-id>`. Until then, the version isn't
+   installable.
 
 **Before a new major version:** the demo site serves the bundle under its major
 version, such as `v1/`, and only holds what the current build produces. The

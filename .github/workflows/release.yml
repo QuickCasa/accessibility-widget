@@ -10,10 +10,8 @@ permissions:
 
 jobs:
   release:
-    name: Build and publish the release
+    name: Build, release and stage on npm
     runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v7
 
@@ -43,8 +41,11 @@ jobs:
             dist/accessibility.js
             dist/accessibility.js.map
 
-      - name: Publish to npm
-        if: env.NPM_TOKEN != ''
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # npm trusts this workflow through OIDC, so there is no token. The
+      # version is staged on npm and goes live once a maintainer approves it
+      # with 2FA: npm stage list, then npm stage approve <stage-id>.
+      - name: Update npm for trusted publishing
+        run: npm install --global npm@^11.21.0
+
+      - name: Stage the release on npm
+        run: npm stage publish . --access public --provenance

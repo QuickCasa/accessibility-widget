@@ -40,6 +40,16 @@ Use `defer` in `<head>`. Saved preferences are applied the moment the script
 runs, before the widget is drawn, so a returning visitor never sees the
 unmodified page first.
 
+### Installing from npm
+
+```bash
+npm install @quickcasa/accessibility-widget
+```
+
+The package holds the same `dist/accessibility.js` as the GitHub release. Copy
+it into your site's static files as part of your build and load it with the
+script tag above, so the data attributes still work.
+
 ### Trying it without hosting anything
 
 The demo site serves the latest 1.x release:
