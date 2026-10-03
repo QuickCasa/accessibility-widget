@@ -1,0 +1,30 @@
+name: Feature request
+description: Suggest a new control or an improvement to an existing one.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This widget gives visitors controls and never tries to repair the host site. Please read the scope rules in [CONTRIBUTING.md](https://github.com/QuickCasa/accessibility-widget/blob/main/CONTRIBUTING.md) before suggesting a feature.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Who is this for, and what problem does it solve?
+      description: Describe the visitor and the barrier they hit.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like the widget to do?
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This does not rewrite or repair the host site's markup.
+          required: true
+        - label: This does not need a network request or a new dependency.
+          required: true

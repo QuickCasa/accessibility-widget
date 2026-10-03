@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stress test: Accessibility Widget</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Georgia, serif;
+        font-size: 16px;
+        color: #333333;
+        background: #f7f7f8;
+      }
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 0 24px;
+        background: #1d2b3a;
+        color: #ffffff;
+        z-index: 50;
+      }
+      .site-header a {
+        color: #c9d8e8;
+        text-decoration: none;
+        font-size: 15px;
+      }
+      .hero {
+        margin-top: 64px;
+        padding: 72px 24px;
+        background-image: linear-gradient(135deg, #2b4a6f, #6a24ff);
+        color: #ffffff;
+      }
+      .hero h1 {
+        margin: 0 0 12px;
+        font-size: 38px;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 24px 80px;
+      }
+      p {
+        font-size: 17px;
+        line-height: 1.35;
+      }
+      .pulse {
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+        background: #6a24ff;
+        animation: pulse 1.2s ease-in-out infinite alternate;
+      }
+      @keyframes pulse {
+        from {
+          transform: scale(1);
+          opacity: 1;
+        }
+        to {
+          transform: scale(1.25);
+          opacity: 0.5;
+        }
+      }
+      .card {
+        padding: 20px;
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+      input[type='text'] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #bbbbbb;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+      footer {
+        padding: 32px 24px;
+        background: #1d2b3a;
+        color: #c9d8e8;
+        font-size: 14px;
+      }
+      footer a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <strong>Fixed header</strong>
+      <a href="#one">Pixel text</a>
+      <a href="#two">Animation</a>
+      <a href="#three">Card</a>
+    </header>
+
+    <div class="hero">
+      <h1>Stress test page</h1>
+      <p>
+        A hero built on a background image, which high contrast has to deal
+        with.
+      </p>
+    </div>
+
+    <main class="main-content">
+      <div class="wrap">
+        <h2 id="one">Text at fixed pixel sizes</h2>
+        <p>
+          This paragraph is set in pixels, not rem, so a root font-size change
+          would do nothing to it. Scaling has to behave like real browser zoom.
+        </p>
+
+        <h2 id="two">An animation that should stop</h2>
+        <div class="pulse" id="pulse-box"></div>
+
+        <h2 id="three">A card, a link and a field</h2>
+        <div class="card">
+          <p>
+            Here is <a href="https://example.com/one">a real link</a>, and here
+            is <a>an anchor with no href</a> that should never get underlined.
+          </p>
+          <label for="postcode">Postal code</label>
+          <input id="postcode" type="text" placeholder="T2P 1J9" />
+        </div>
+
+        <p>
+          <a href="https://example.com/two"
+            ><img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI0MCI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjNmEyNGZmIi8+PC9zdmc+"
+              alt="An image-only link"
+          /></a>
+        </p>
+      </div>
+    </main>
+
+    <footer><a href="./">Back to the overview</a></footer>
+
+    <script
+      src="accessibility.js"
+      data-qc-accessibility
+      data-accent="#6A24FF"
+      data-position="bottom-right"
+      defer></script>
+  </body>
+</html>

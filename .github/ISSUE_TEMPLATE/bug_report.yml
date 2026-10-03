@@ -1,0 +1,41 @@
+name: Bug report
+description: Something in the widget is broken, or it breaks the page it runs on.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How can we reproduce it?
+      description: A public URL, or a minimal HTML page that shows the problem, is the fastest route to a fix.
+    validations:
+      required: true
+  - type: textarea
+    id: script-tag
+    attributes:
+      label: Your script tag
+      description: Paste the exact tag, including every data attribute.
+      render: html
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and operating system
+      placeholder: For example, Firefox 131 on Windows 11
+    validations:
+      required: true
+  - type: input
+    id: assistive-technology
+    attributes:
+      label: Assistive technology, if any
+      placeholder: For example, NVDA 2026.1, VoiceOver, Windows high contrast mode
+  - type: input
+    id: version
+    attributes:
+      label: Widget version
+      description: From the release you downloaded, or the URL you load it from.

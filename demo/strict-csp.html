@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; require-trusted-types-for 'script'" />
+    <title>Strict CSP: Accessibility Widget</title>
+  </head>
+  <body>
+    <main>
+      <h1>Strict Content-Security-Policy</h1>
+      <p>
+        This page forbids inline styles, inline scripts and every network
+        request, and enforces Trusted Types. It is deliberately unstyled,
+        because its own inline styles would be blocked too.
+      </p>
+      <p>
+        The widget should still appear fully styled in the corner, every control
+        should work, and the browser console should show no policy violations.
+      </p>
+      <p><a href="./">Back to the overview</a></p>
+    </main>
+
+    <script src="accessibility.js" data-qc-accessibility defer></script>
+  </body>
+</html>
