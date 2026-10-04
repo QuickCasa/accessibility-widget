@@ -8,30 +8,44 @@
       name="description"
       content="A free, open source accessibility toolbar you add to any website with one script tag. Visitors can adjust contrast, text size, spacing, focus and motion." />
     <style>
+      @font-face {
+        font-family: 'Space Grotesk Variable';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 300 700;
+        src: url(./space-grotesk.woff2) format('woff2-variations');
+      }
+
       :root {
         --background: #ffffff;
-        --surface: #f6f5fa;
-        --text: #16141f;
-        --muted: #4d4a5c;
-        --border: #d9d6e4;
-        --accent: #5b1fe0;
-        --accent-text: #ffffff;
-        --code-background: #16141f;
-        --code-text: #f4f2fb;
+        --surface: #f6f5f9;
+        --ink: #141330;
+        --muted: #56546e;
+        --line: #e4e2ec;
+        --accent: #6c43ff;
+        --button: #141330;
+        --button-text: #ffffff;
+        --code-background: #141330;
+        --code-text: #f1effa;
+        --display:
+          'Space Grotesk Variable', -apple-system, BlinkMacSystemFont,
+          'Segoe UI', sans-serif;
+        --aside: 220px;
         color-scheme: light dark;
       }
 
       @media (prefers-color-scheme: dark) {
         :root {
-          --background: #121019;
-          --surface: #1c1926;
-          --text: #f2f0f8;
-          --muted: #b9b4cc;
-          --border: #34304a;
-          --accent: #a98bff;
-          --accent-text: #121019;
-          --code-background: #08070c;
-          --code-text: #f4f2fb;
+          --background: #0e0d1a;
+          --surface: #17152a;
+          --ink: #f1effa;
+          --muted: #aaa7c0;
+          --line: #2a2840;
+          --accent: #a18aff;
+          --button: #f1effa;
+          --button-text: #0e0d1a;
+          --code-background: #07060f;
+          --code-text: #f1effa;
         }
       }
 
@@ -42,63 +56,106 @@
       body {
         margin: 0;
         background: var(--background);
-        color: var(--text);
+        color: var(--ink);
         font-family:
           -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
           Arial, sans-serif;
-        font-size: 17px;
+        font-size: 16px;
         line-height: 1.6;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--display);
+        font-weight: 500;
       }
 
       a {
         color: var(--accent);
-        text-underline-offset: 0.15em;
+        text-underline-offset: 0.2em;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
       }
 
       .wrap {
-        width: min(880px, 100% - 32px);
+        width: min(1040px, 100% - 32px);
         margin: 0 auto;
-      }
-
-      .site-header {
-        border-bottom: 1px solid var(--border);
       }
 
       .site-header .wrap {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        min-height: 64px;
+        gap: 12px;
+        min-height: 68px;
+        border-bottom: 1px solid var(--line);
       }
 
       .brand {
+        color: var(--accent);
+        font-family: var(--display);
+        font-size: 1.15rem;
         font-weight: 700;
-        color: var(--text);
+        letter-spacing: -0.02em;
         text-decoration: none;
       }
 
-      .brand span {
+      .product {
+        padding-left: 12px;
+        border-left: 1px solid var(--line);
         color: var(--muted);
-        font-weight: 500;
+        font-family: var(--display);
+        text-decoration: none;
+      }
+
+      .site-header nav {
+        margin-left: auto;
+      }
+
+      .site-header nav a {
+        color: var(--ink);
+        font-size: 0.95rem;
       }
 
       .hero {
         padding: 72px 0 56px;
       }
 
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 20px;
+        font-family: var(--display);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: '';
+        width: 32px;
+        height: 1px;
+        background: var(--accent);
+      }
+
       .hero h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2rem, 5vw, 3.1rem);
-        line-height: 1.15;
-        letter-spacing: -0.02em;
+        max-width: 18ch;
+        margin: 0 0 20px;
+        font-size: clamp(2.4rem, 6vw, 4rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
       }
 
       .lede {
-        max-width: 640px;
-        margin: 0 0 28px;
-        font-size: 1.2rem;
+        max-width: 620px;
+        margin: 0 0 32px;
         color: var(--muted);
+        font-size: 1.15rem;
       }
 
       .actions {
@@ -110,75 +167,116 @@
       .button {
         display: inline-flex;
         align-items: center;
-        min-height: 48px;
-        padding: 10px 20px;
-        border: 2px solid var(--accent);
-        border-radius: 10px;
-        font: inherit;
-        font-weight: 600;
+        min-height: 46px;
+        padding: 10px 22px;
+        border: 1px solid var(--button);
+        border-radius: 999px;
+        font-family: var(--display);
+        font-size: 1rem;
+        font-weight: 500;
         text-decoration: none;
         cursor: pointer;
       }
 
       .button-primary {
+        background: var(--button);
+        color: var(--button-text);
+      }
+
+      .button-primary:hover {
+        border-color: var(--accent);
         background: var(--accent);
-        color: var(--accent-text);
+        color: #ffffff;
       }
 
       .button-secondary {
         background: transparent;
-        color: var(--accent);
+        color: var(--ink);
+      }
+
+      .button-secondary:hover {
+        background: var(--surface);
       }
 
       .hint {
-        margin: 20px 0 0;
+        max-width: 620px;
+        margin: 24px 0 0;
         color: var(--muted);
         font-size: 0.95rem;
       }
 
-      section {
+      section .wrap {
+        display: grid;
+        grid-template-columns: var(--aside) minmax(0, 1fr);
         padding: 40px 0;
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--line);
       }
 
-      h2 {
-        margin: 0 0 16px;
-        font-size: 1.6rem;
+      section .wrap > h2 {
+        grid-row: 1 / span 20;
+        margin: 0;
+        padding-right: 24px;
+        font-size: 1.35rem;
         line-height: 1.25;
+        letter-spacing: -0.02em;
       }
 
-      h3 {
-        margin: 0 0 6px;
-        font-size: 1.05rem;
+      section .wrap > :not(h2) {
+        grid-column: 2;
       }
 
-      .grid {
+      section .wrap > p:first-of-type {
+        margin-top: 0;
+      }
+
+      @media (max-width: 760px) {
+        .hero {
+          padding-top: 40px;
+        }
+
+        section .wrap {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        section .wrap > h2 {
+          grid-row: auto;
+          padding: 0 0 16px;
+        }
+
+        section .wrap > :not(h2) {
+          grid-column: 1;
+        }
+      }
+
+      .features {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 16px;
+        gap: 0 32px;
         margin: 0;
         padding: 0;
         list-style: none;
       }
 
-      .grid li {
-        padding: 18px 20px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
+      .features li {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
       }
 
-      .grid p {
+      .features h3 {
+        margin: 0 0 4px;
+        font-size: 1.05rem;
+        letter-spacing: -0.01em;
+      }
+
+      .features p {
         margin: 0;
         color: var(--muted);
-        font-size: 0.97rem;
+        font-size: 0.95rem;
       }
 
       .limits {
-        padding: 24px 28px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
+        padding: 2px 0 2px 20px;
+        border-left: 3px solid var(--ink);
       }
 
       .limits p {
@@ -197,34 +295,36 @@
         margin: 0;
         padding: 20px;
         overflow-x: auto;
+        border-radius: 8px;
         background: var(--code-background);
         color: var(--code-text);
-        border-radius: 12px;
-        font-size: 0.92rem;
+        font-size: 0.9rem;
         line-height: 1.55;
       }
 
       code {
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.92em;
       }
 
       .copy {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        min-height: 36px;
-        padding: 4px 12px;
+        top: 12px;
+        right: 12px;
+        min-height: 34px;
+        padding: 4px 14px;
+        border: 0;
+        border-radius: 999px;
         background: var(--code-text);
         color: var(--code-background);
-        border: 0;
-        border-radius: 8px;
-        font: inherit;
+        font-family: var(--display);
         font-size: 0.85rem;
-        font-weight: 600;
+        font-weight: 500;
         cursor: pointer;
       }
 
       .table-scroll {
+        position: relative;
         overflow-x: auto;
       }
 
@@ -236,25 +336,40 @@
 
       th,
       td {
-        padding: 10px 12px;
-        border-bottom: 1px solid var(--border);
+        padding: 10px 12px 10px 0;
+        border-bottom: 1px solid var(--line);
         text-align: left;
         vertical-align: top;
       }
 
       th {
-        font-weight: 700;
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 600;
       }
 
       td code {
         white-space: nowrap;
       }
 
+      .tests {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .tests li + li {
+        margin-top: 8px;
+      }
+
       .site-footer {
-        padding: 32px 0 96px;
-        border-top: 1px solid var(--border);
+        padding: 0 0 96px;
         color: var(--muted);
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+      }
+
+      .site-footer .wrap {
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
       }
 
       .visually-hidden {
@@ -271,16 +386,20 @@
   <body>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="./"
-          >Accessibility Widget <span>by QuickCasa</span></a
-        >
-        <a href="https://github.com/QuickCasa/accessibility-widget">GitHub</a>
+        <a class="brand" href="https://quickcasa.ai">QuickCasa</a>
+        <a class="product" href="./">Accessibility widget</a>
+        <nav aria-label="Project links">
+          <a href="https://github.com/QuickCasa/accessibility-widget"
+            >Source on GitHub</a
+          >
+        </nav>
       </div>
     </header>
 
     <main>
       <div class="hero">
         <div class="wrap">
+          <p class="eyebrow">For website owners</p>
           <h1>A free, open source accessibility toolbar for any website</h1>
           <p class="lede">
             Add one script tag and visitors can adjust contrast, text size,
@@ -313,7 +432,7 @@
       <section aria-labelledby="features-heading">
         <div class="wrap">
           <h2 id="features-heading">What visitors get</h2>
-          <ul class="grid">
+          <ul class="features">
             <li>
               <h3>Skip to main content</h3>
               <p>
@@ -410,7 +529,7 @@
   src="/accessibility.js"
   data-qc-accessibility
   data-position="bottom-right"
-  data-accent="#5B1FE0"
+  data-accent="#6C43FF"
   defer&gt;&lt;/script&gt;</code></pre>
             <button class="copy" type="button" data-copy-target="embed-snippet">
               Copy<span class="visually-hidden"> the embed snippet</span>
@@ -504,7 +623,7 @@
       <section aria-labelledby="tests-heading">
         <div class="wrap">
           <h2 id="tests-heading">Test pages</h2>
-          <ul>
+          <ul class="tests">
             <li>
               <a href="stress-test.html">Stress test</a>: a fixed header, a
               background-image hero, pixel-sized text, a looping animation and
@@ -565,7 +684,7 @@
     <script
       src="accessibility.js"
       data-qc-accessibility
-      data-accent="#5B1FE0"
+      data-accent="#6C43FF"
       defer></script>
   </body>
 </html>

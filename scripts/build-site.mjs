@@ -24,6 +24,16 @@ const DEMO_DIRECTORY = 'demo'
 const DIST_DIRECTORY = 'dist'
 const BUNDLE_FILES = ['accessibility.js', 'accessibility.js.map']
 
+// The demo page's heading font, served from this site so the page makes no
+// requests to anyone else.
+const FONT_FILE = join(
+  'node_modules',
+  '@fontsource-variable',
+  'space-grotesk',
+  'files',
+  'space-grotesk-latin-wght-normal.woff2',
+)
+
 if (!existsSync(join(DIST_DIRECTORY, BUNDLE_FILES[0]))) {
   console.error('No build found. Run "npm run build" first.')
   process.exit(1)
@@ -35,6 +45,8 @@ mkdirSync(SITE_DIRECTORY)
 for (const fileName of readdirSync(DEMO_DIRECTORY)) {
   copyFileSync(join(DEMO_DIRECTORY, fileName), join(SITE_DIRECTORY, fileName))
 }
+
+copyFileSync(FONT_FILE, join(SITE_DIRECTORY, 'space-grotesk.woff2'))
 
 const { version } = JSON.parse(readFileSync('package.json', 'utf8'))
 const majorDirectory = join(SITE_DIRECTORY, `v${version.split('.')[0]}`)
